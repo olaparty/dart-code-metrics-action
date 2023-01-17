@@ -90,7 +90,7 @@ class Arguments {
     return Arguments._(
       gitHubToken: toolkit.getInput(
         name: 'github_token',
-        options: const toolkit.InputOptions(required: true),
+        options: const toolkit.InputOptions(required: false),
       ),
       gitHubPersonalAccessTokenKey: toolkit.getInput(name: 'github_pat'),
       folders: folders.isNotEmpty ? folders : _defaultFolders,
