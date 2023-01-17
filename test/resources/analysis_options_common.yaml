@@ -1,0 +1,15 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  exclude:
+    - example/**
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+dart_code_metrics:
+  metrics-exclude:
+    - test/**
+  rules:
+    - rule-id4
+    - rule-id5
