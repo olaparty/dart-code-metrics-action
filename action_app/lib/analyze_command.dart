@@ -27,6 +27,7 @@ Future<void> analyze(
   GitHubCheckRunReporter reporter,
   GitHubWorkflowUtils workflowUtils,
   Arguments arguments,
+  {Set<String>? filesToAnalyze,}
 ) async {
   final checkRunUtils = GitHubCheckRunUtils(workflowUtils);
 
@@ -36,6 +37,9 @@ Future<void> analyze(
     foldersToAnalyze,
     rootFolder,
     _emptyLintConfig,
+    analyzedFiles: filesToAnalyze,
+    // ignore: format-comment
+    excludedPaths: ['lib','banban_base', 'packages', 'storybook'], // arguments.checkUnusedFiles,
   );
 
   final summary = analyzer.getSummary(report);

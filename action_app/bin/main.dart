@@ -11,7 +11,7 @@ import 'package:action_app/task.dart';
 import 'package:action_app/unused_files_command.dart';
 import 'package:actions_toolkit_dart/core.dart';
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   final workflowUtils =
       GitHubWorkflowUtils(environmentVariables: Platform.environment);
 
@@ -49,6 +49,7 @@ Future<void> main() async {
                 reporter,
                 workflowUtils,
                 arguments,
+                filesToAnalyze: args.toSet(),
               )),
       if (arguments.checkUnusedFiles)
         (await GitHubTask.create(
