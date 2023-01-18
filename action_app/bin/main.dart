@@ -35,15 +35,17 @@ Future<void> main(List<String> args) async {
     final foldersToScanForUnusedFiles =
         validateFoldersToAnalyze(arguments.checkUnusedFilesFolders, rootFolder);
 
+    final packageName = arguments.projectName.isEmpty ? pubspecUtils.packageName : arguments.projectName;
+
     final tasks = [
       (await GitHubTask.create(
         checkRunNamePattern: arguments.analyzeReportTitlePattern,
-        packageName: pubspecUtils.packageName,
+        packageName: packageName,
         workflowUtils: workflowUtils,
         arguments: arguments,
       ))
           .run((reporter) => analyze(
-                pubspecUtils.packageName,
+                packageName,
                 rootFolder,
                 foldersToAnalyze,
                 reporter,
@@ -54,12 +56,12 @@ Future<void> main(List<String> args) async {
       if (arguments.checkUnusedFiles)
         (await GitHubTask.create(
           checkRunNamePattern: arguments.unusedFilesReportTitlePattern,
-          packageName: pubspecUtils.packageName,
+          packageName: packageName,
           workflowUtils: workflowUtils,
           arguments: arguments,
         ))
             .run((reporter) => unusedFiles(
-                  pubspecUtils.packageName,
+                  packageName,
                   rootFolder,
                   foldersToScanForUnusedFiles,
                   reporter,

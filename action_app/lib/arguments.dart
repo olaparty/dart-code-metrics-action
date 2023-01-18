@@ -11,6 +11,8 @@ const _defaultFolders = ['lib'];
 const _pubspecYaml = 'pubspec.yaml';
 
 class Arguments {
+  final String projectName;
+
   /// Token to call the GitHub API.
   final String gitHubToken;
 
@@ -53,6 +55,7 @@ class Arguments {
   /// Slug of the repository.
   final String repositorySlug;
 
+  // ignore: long-method
   factory Arguments(GitHubWorkflowUtils workflowUtils) {
     final packageRelativePath = toolkit.getInput(name: 'relative_path');
 
@@ -92,6 +95,10 @@ class Arguments {
         name: 'github_token',
         options: const toolkit.InputOptions(required: false),
       ),
+      projectName: toolkit.getInput(
+        name: 'project_name',
+        options: const toolkit.InputOptions(required: false),
+      ),
       gitHubPersonalAccessTokenKey: toolkit.getInput(name: 'github_pat'),
       folders: folders.isNotEmpty ? folders : _defaultFolders,
       packagePath: packagePath,
@@ -112,6 +119,7 @@ class Arguments {
   }
 
   Arguments._({
+    required this.projectName,
     required this.gitHubToken,
     required this.gitHubPersonalAccessTokenKey,
     required this.folders,
